@@ -17,7 +17,18 @@
 ;; {:sound "hoot"} ; <= a map reader form with a keyword reader form and
                    ; string reader form
 
+;; A qoute reder macro expands to a quote special form
+(read-string "'(1 2 3)") ; => (quote (1 2 3))
+
 ;;; Macros
 
 ;; A simple expansion of the when macro
 (macroexpand '(when true "smile")) ; => (if true (do "smile"))
+
+;; Simple macro definition
+;;   - this macro ignores the last operand of the function call
+(defmacro ignore-last-operand
+  [function-call]
+  (butlast function-call))
+
+(ignore-last-operand (+ 1 3 5)) ; => 4
