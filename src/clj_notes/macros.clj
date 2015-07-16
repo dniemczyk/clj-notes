@@ -32,3 +32,27 @@
   (butlast function-call))
 
 (ignore-last-operand (+ 1 3 5)) ; => 4
+
+;; You often have to define a macro with syntax quoting and unquoting
+
+;; Syntax quoting will always include the symbol's full namespace
+;; normal qouting just has the symbol
+`+ ; => clojure.core/+
+
+(defn criticize-code
+  [criticism code]
+  `(println ~criticism (quote ~code)))
+
+(defmacro code-critic
+  [{:keys [good bad]}]
+  `(do ~@(map #(apply criticize-code %)
+             [["bad code:" bad]
+              ["good code:" good]])))
+
+;; Without unquote splicing
+`(+ ~(list 1 2 3))
+; => (clojure.core/+ (1 2 3))
+
+;; With unquote splicing
+`(+ ~@(list 1 2 3))
+; => (clojure.core/+ 1 2 3)
