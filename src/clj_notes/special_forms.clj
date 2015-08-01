@@ -28,3 +28,41 @@
   (do
     (println (format "You have as always a %s and a %s" a b))
     (+ a b)))
+
+;;; def - defining variables
+
+(def p-var "foo") ; it is posible to redefine those later
+
+;;; let - local bindings
+
+(defn hypot
+  [x y]
+  ;; name references are lexicaly scoped to the let expression
+  (let [x2 (* x x)
+        y2 (* y y)]
+    (Math/sqrt (+ x2 y2))))
+
+;;; Destructuring (let2)
+
+(def v [42 "foo" 92.2 [5 12]])
+
+(first v)  ; => 42
+(second v) ; => foo
+(last v)   ; => [5 12]
+(nth v 2)  ; => 92.2
+(v 2)      ; => 92.2
+(.get v 2) ; => 92.2
+
+;; sequential destructuring - works with any collection
+(let [[x y z] v]
+  (+ x z)) ; => 134.2
+
+(let [[x _ _ [y z]] v]
+  (+ x z)) ; => 54
+
+(let [[x & more] v]
+  more) ; => ("foo" 92.2 [5 12])
+
+;; retaining deconstructed value
+(let [[x _ z :as original-vector] v]
+  (conj  original-vector (+ x z))) ; => [42 "foo" 92.2 [5 12] 134.2]
