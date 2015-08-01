@@ -77,3 +77,10 @@
         :d {:e 10 :f 11}
         "foo" 88
         42 false})
+
+(let [{a :a b :b} m]
+  (+ a b)) ; => 11
+
+;; it not needed that the keys bound in the maps be keywords
+(let [{f "foo"} m]
+  (+ f 12)) ; => 100
