@@ -66,3 +66,14 @@
 ;; retaining deconstructed value
 (let [[x _ z :as original-vector] v]
   (conj  original-vector (+ x z))) ; => [42 "foo" 92.2 [5 12] 134.2]
+
+;; map destructuring - hash-maps, array-maps and records and any collection
+;; that utilizes java.util.Map
+
+;; start with a basic map
+(def m {:a 5
+        :b 6
+        :c [7 8 9]
+        :d {:e 10 :f 11}
+        "foo" 88
+        42 false})
