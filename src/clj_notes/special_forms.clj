@@ -84,3 +84,21 @@
 ;; it not needed that the keys bound in the maps be keywords
 (let [{f "foo"} m]
   (+ f 12)) ; => 100
+
+;; indices into vectors, strings and arrays can be used in
+;; the map destructoring form
+(let [{x 3 y 8} [12 0 0 -18 44 6 0 0 1]]
+  (+ x y)) ; => -17
+
+;; map destructoring can be also composed
+(let [{{e :e} :d} m]
+  (+ e 12)) ; => 22
+
+;; you can compose map an sequential deconstructors
+(let [{[x _ y] :c} m]
+  (+ x y)) ; => 16
+;; an example how this is done the other way around
+(def map-in-vector ["James" {:birthday (java.util.Date. 73 6 1)}])
+(let [[name {bd :birthday}] map-in-vector]
+  (str name " was born on " bd))
+; => James was born on Sun Jul 01 00:00:00 CET 1973
