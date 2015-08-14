@@ -102,3 +102,34 @@
 (let [[name {bd :birthday}] map-in-vector]
   (str name " was born on " bd))
 ; => James was born on Sun Jul 01 00:00:00 CET 1973
+
+;;; fn -- Creating functions
+
+((fn [x] (+ 8 x)) 12) ; => 20
+
+;; functions can also have multiple arguments
+((fn [x y z] (* x y z)) 2 3 -4) ; => -24
+
+;; functions can also have multiple arities here i define a var in the
+;; longer form later this can be combined with the defn macro
+(def strange-adder (fn adder-self-ref
+                     ([x] (adder-self-ref x 1))
+                     ([x y] (+ x y))))
+
+(strange-adder 11)    ; => 12
+(strange-adder 12 34) ; => 46
+
+;; Destructoring function arguments
+
+;; Variadic functions - functions with rest arguments or (other name) varargs
+(defn concat-rest
+  [x & rest]
+  (apply str (butlast rest)))
+
+(concat-rest 0 1 2 3 4) ; => "123"
+
+;; creates a uuid or the passed in name in args
+(defn make-user
+  [& [user-id]]
+  {:user-id (or user-id
+                (str (java.util.UUID/randomUUID)))})
