@@ -12,5 +12,5 @@
 ;     {:first-name "Michael", :last-name "Smith"}
 ;     {:first-name "Ryu", :last-name "Fukutoshi"})
 
-;; TODO: I have yet to understand why using a key (keyword) for the second
-;;       argument of a map creates a response with the value
+;; NOTICE: collections are functions - a call of the p1 map on the
+;;         first-name keyword key returns the value for that key
