@@ -31,3 +31,15 @@
 
 (swap-pairs (apply list (range 10)))   ; => (8 9 6 7 4 5 2 3 0 1)
 (swap-pairs (apply vector (range 10))) ; => [1 0 3 2 5 4 7 6 9 8]
+
+;; empty does not requrie to be only used on seqential types, take a look
+;; at the following function
+(defn map-map [f m]
+  (into (empty m)
+        (for [[k v] m]
+          [k (f v)])))
+
+;; the map may be sorted in, sorted out, unsorted - in the caller detemines
+;; the type of values they get in return
+(map-map inc (hash-map :b 4 :k 2 :d 10))   ; => {:k 3, :b 5, :d 11}
+(map-map inc (sorted-map :b 4 :k 2 :d 10)) ; => {:b 5, :d 11, :k 3}
