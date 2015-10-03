@@ -20,3 +20,14 @@
 ;;        in the most efficient way
 (into '(1 2 3) [:a :b :c]) ; => (:c :b :a 1 2 3)
 (into [1 2 3] [:a :b :c])  ; => [1 2 3 :a :b :c]
+
+;; empty - allows to work with a collection of a specific type (without
+;;         having to define it beforehand) as the following function shows
+(defn swap-pairs [sequential]
+  (into (empty sequential)
+        (interleave
+         (take-nth 2 (drop 1 sequential))
+         (take-nth 2 sequential))))
+
+(swap-pairs (apply list (range 10)))   ; => (8 9 6 7 4 5 2 3 0 1)
+(swap-pairs (apply vector (range 10))) ; => [1 0 3 2 5 4 7 6 9 8]
