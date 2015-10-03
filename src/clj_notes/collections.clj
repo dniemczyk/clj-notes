@@ -21,6 +21,12 @@
 (into '(1 2 3) [:a :b :c]) ; => (:c :b :a 1 2 3)
 (into [1 2 3] [:a :b :c])  ; => [1 2 3 :a :b :c]
 
+;; cound - indicates the number of entities in a collection
+(count [1 2 3]) ; => 3
+(count '(1 2 3)) ; => 3
+(count {:a 1 :b 2 :c 3}) ; => 3
+(count #{:a "b" 3}) ; => 3
+
 ;; empty - allows to work with a collection of a specific type (without
 ;;         having to define it beforehand) as the following function shows
 (defn swap-pairs [sequential]
