@@ -34,6 +34,16 @@
 (next "D") ; => nil
 (next nil) ; => nil
 
+;; seqs are not lists, e.g. a count of a seq requires full traversal of
+;; the seq, where a list tracks its own length so:
+;;= "Elapsed time: 19.073424 msecs"
+(let [s (range 1e5)]
+  (time (count s))) ; => 100000
+
+;;= "Elapsed time: 0.02385 msecs"
+(let [s (apply list (range 1e5))]
+  (time (count s))) ; => 100000
+
 ;;; Lazy sequences
 
 (defn fib-seq
