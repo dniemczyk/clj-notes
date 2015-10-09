@@ -123,7 +123,7 @@
 
 ;; Variadic functions - functions with rest arguments or (other name) varargs
 (defn concat-rest
-  [x & rest]
+  [_ & rest]
   (apply str (butlast rest)))
 
 (concat-rest 0 1 2 3 4) ; => "123"
