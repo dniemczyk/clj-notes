@@ -44,7 +44,21 @@
 (let [s (apply list (range 1e5))]
   (time (count s))) ; => 100000
 
+;;; Sequence creation
+;;;;;;;;;;;;;;;;;;;;;
+
+;; cons - cons creates a sequence by always prepending the given first
+;;        value to the sequence given as the second value
+(cons 4 (range 2 5)) ; => (4 2 3 4)
+(cons :d [:a :b :c]) ; => (:d :a :b :c)
+
+;; list* - a helper for creating seqs with any number of head values and
+;;         one sequence as a tail value. The two sniplets are equivalent
+(cons 6 (cons 5 (cons 4 (range 1 4)))) ; => (6 5 4 1 2 3)
+(list* 6 5 4 (range 1 4)) ; => (6 5 4 1 2 3)
+
 ;;; Lazy sequences
+;;;;;;;;;;;;;;;;;;
 
 (defn fib-seq
   "Returns a lazy sequence of Fibonacci numbers"
