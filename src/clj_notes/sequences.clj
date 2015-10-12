@@ -70,3 +70,15 @@
 
 (take 5 (fib-seq))
 ;; => (1 1 2 3 5)
+
+;; another interesting example is a function that creates a lazy
+;; sequence of random integers
+(defn random-ints
+  "Returs a lazy sequence of random integers in the range [0..limit]"
+  [limit]
+  (lazy-seq
+   (cons (rand-int limit)
+         (random-ints limit))))
+
+;; Remember as this function is not pure the result will differ
+(take 10 (random-ints 50)) ; => (41 23 1 36 41 26 20 34 44 28)
